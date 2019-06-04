@@ -38,42 +38,42 @@ app.layout = html.Div(children=[
 
     html.H1(children='Francis St. and environs',style={'color': 'darkblue', 'fontSize': 20, 'text-align':'center'}),
 
-    html.Div( children=[
-        html.Img( id="bbeach",
-            width=400,height=300,
-            src = "http://webcams.bsch.com.au/bondi_beach/1252x940.jpg?cache=%d" % random.randint(0,30000)
-            ),
-
-
-        html.Img( id="icebergs",
-            width=400,height=300,
-            src = "http://203.217.21.105:1050/jpg/1/image.jpg?cache=%d" % random.randint(0,30000)
-            ),
-
-        html.Img( id="big",
-            width=400,height=300,
-            src = "http://192.168.1.108/snapshot.jpg"
-            ),
-
-        html.Img( id="small",
-            width=400,height=300,
-            src = "http://192.168.1.107/snapshot.jpg"
-            )], style = {'display': 'block'}
-        ),
-
-    html.Div( children=[
-        html.Img( id="pi1",
-            width=500,height=400,
-            src = "http://192.168.1.199/"
-            ),
-
-        html.Img( id="pi2",
-            width=500,height=400,
-            src = "http://192.168.1.200/"
-            )], style = {'display': 'block'}
-        )
-
-])
+    html.Table( children=[
+        html.Tr('Test table layout',style={'color': 'darkblue', 'fontSize': 15, 'text-align':'center'}),
+        html.Tr([
+            html.Td(
+            html.Img( id="bbeach",
+                width=400,height=300,
+                src = "http://webcams.bsch.com.au/bondi_beach/1252x940.jpg?cache=%d" % random.randint(0,30000)
+                )),
+            html.Td(
+            html.Img( id="icebergs",
+                width=400,height=300,
+                src = "http://203.217.21.105:1050/jpg/1/image.jpg?cache=%d" % random.randint(0,30000)
+                )),
+            html.Td(
+            html.Img( id="big",
+                width=400,height=300,
+                src = "http://192.168.1.108/snapshot.jpg"
+                ))], style = {'display': 'block'}),
+        html.Tr([
+            html.Td(
+            html.Img( id="small",
+                width=400,height=300,
+                src = "http://192.168.1.107/snapshot.jpg"
+                )),
+            html.Td(
+            html.Img( id="pi1",
+                width=500,height=400,
+                src = "http://192.168.1.199/"
+                )),
+            html.Td(
+            html.Img( id="pi2",
+                width=500,height=400,
+                src = "http://192.168.1.200/"
+                ))], style = {'display': 'block'} ),
+            ])
+        ])
 
 @app.callback([Output('bbeach','src'),Output('icebergs','src'),Output('big','src'),Output('small','src')],
               [Input('btimer', 'n_intervals')])
