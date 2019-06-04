@@ -34,21 +34,17 @@ def generate_table(urls):
         )])
 
         
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__) #, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(children=[
 
     dcc.Interval(
             id='btimer',
             interval=hour3*1000 ,
-            disabled=False,
-            n_intervals=0
             ),
     dcc.Interval(
             id='ptimer',
             interval=hour1*1000 ,
-            disabled=False,
-            n_intervals=0
             ),
 
     html.Div(id = "h3im", children=[
@@ -61,7 +57,7 @@ app.layout = html.Div(children=[
     ])
 
 @app.callback(Output('h3im','children'),
-              [Input('btimer', 'n_intervals')])
+             [Input('btimer', 'n_intervals')])
 def display_hour3(n_intervals):
     h3urls = ["http://webcams.bsch.com.au/bondi_beach/1252x940.jpg?cache=%d" % random.randint(0,30000),
     "http://203.217.21.105:1050/jpg/1/image.jpg?cache=%d" % random.randint(0,30000),
@@ -71,8 +67,8 @@ def display_hour3(n_intervals):
     t = generate_table(h3urls)
     return t
 
-@app.callback([Output("h1im",'children')],
-              [Input('ptimer', 'n_intervals')])
+@app.callback(Output("h1im",'children'),
+               [Input('ptimer', 'n_intervals')])
 def display_hour(n_intervals):
     hurls = ["http://192.168.1.199/","http://192.168.1.200/"]
     print('Hour1 images updated',time.strftime('%H:%M:%S'),'n_intervals',n_intervals)
