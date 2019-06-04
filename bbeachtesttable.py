@@ -9,89 +9,75 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import urllib.request
 import base64
-
-refresh1 = 1200 # secs
-refresh2 = 3600 # secs
+hurls = ["http://192.168.1.199/","http://192.168.1.200/"]
+h3urls = ["http://webcams.bsch.com.au/bondi_beach/1252x940.jpg?cache=%d" % random.randint(0,30000),
+    "http://203.217.21.105:1050/jpg/1/image.jpg?cache=%d" % random.randint(0,30000),
+    "http://192.168.1.108/snapshot.jpg",
+    "http://192.168.1.107/snapshot.jpg"]
+titles = ['North','Bergs','Big','Small','Pi1','Pi2']
+hour3 = 1200 # secs
+hour1 = 3600 # secs
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
+
+def generate_table(urls):
+    return html.Table(
+        # Header
+        # [html.Tr([html.Th(t) for t in titles)] +
+
+        # Body
+        [html.Tr([
+            html.Td(html.Img(
+                width=400,height=300,
+                src = urls[i])) for i in range(len(urls))]
+        )])
+
+        
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(children=[
 
     dcc.Interval(
             id='btimer',
-            interval=refresh1*1000 ,
+            interval=hour3*1000 ,
             disabled=False,
             n_intervals=0
             ),
     dcc.Interval(
             id='ptimer',
-            interval=refresh2*1000 ,
+            interval=hour1*1000 ,
             disabled=False,
             n_intervals=0
             ),
 
-#buttons.webcam4 = {width:12, isimage:true, refresh:600,
-# image: 'http://203.217.21.105:1050/jpg/1/image.jpg', url: 'http://203.217.21.105:1050/view/viewer_index.shtml'};
-
-
-    html.H1(children='Francis St. and environs',style={'color': 'darkblue', 'fontSize': 20, 'text-align':'center'}),
-
-    html.Table( children=[
-        html.Tr('Test table layout',style={'color': 'darkblue', 'fontSize': 15, 'text-align':'center'}),
-        html.Tr([
-            html.Td(
-            html.Img( id="bbeach",
-                width=400,height=300,
-                src = "http://webcams.bsch.com.au/bondi_beach/1252x940.jpg?cache=%d" % random.randint(0,30000)
-                )),
-            html.Td(
-            html.Img( id="icebergs",
-                width=400,height=300,
-                src = "http://203.217.21.105:1050/jpg/1/image.jpg?cache=%d" % random.randint(0,30000)
-                )),
-            html.Td(
-            html.Img( id="big",
-                width=400,height=300,
-                src = "http://192.168.1.108/snapshot.jpg"
-                ))], style = {'display': 'block'}),
-        html.Tr([
-            html.Td(
-            html.Img( id="small",
-                width=400,height=300,
-                src = "http://192.168.1.107/snapshot.jpg"
-                )),
-            html.Td(
-            html.Img( id="pi1",
-                width=500,height=400,
-                src = "http://192.168.1.199/"
-                )),
-            html.Td(
-            html.Img( id="pi2",
-                width=500,height=400,
-                src = "http://192.168.1.200/"
-                ))], style = {'display': 'block'} ),
-            ])
+    html.Div(id = "h3im", children=[
+        generate_table(h3urls)
+        ]),
+        
+    html.Div(id = "h1im", children=[
+        generate_table(hurls)
         ])
+    ])
 
-@app.callback([Output('bbeach','src'),Output('icebergs','src'),Output('big','src'),Output('small','src')],
+@app.callback(Output('h3im','children'),
               [Input('btimer', 'n_intervals')])
-def display_beach(n_intervals):
-    sbb = "http://webcams.bsch.com.au/bondi_beach/1252x940.jpg?cache=%d" % random.randint(0,30000)
-    sice = "http://203.217.21.105:1050/jpg/1/image.jpg?cache=%d" % random.randint(0,30000)
-    sbig = "http://192.168.1.108/snapshot.jpg"
-    ssmall = "http://192.168.1.107/snapshot.jpg"
-    print('Four updated',time.strftime('%H:%M:%S'),'n_intervals',n_intervals)
-    return sbb,sice,sbig,ssmall
+def display_hour3(n_intervals):
+    h3urls = ["http://webcams.bsch.com.au/bondi_beach/1252x940.jpg?cache=%d" % random.randint(0,30000),
+    "http://203.217.21.105:1050/jpg/1/image.jpg?cache=%d" % random.randint(0,30000),
+    "http://192.168.1.108/snapshot.jpg",
+    "http://192.168.1.107/snapshot.jpg"]
+    print('Hour3 images updated',time.strftime('%H:%M:%S'),'n_intervals',n_intervals)
+    t = generate_table(h3urls)
+    return t
 
-@app.callback([Output('pi1','src'),Output('pi2','src')],
+@app.callback([Output("h1im",'children')],
               [Input('ptimer', 'n_intervals')])
-def display_pis(n_intervals):
-    sp1 = "http://192.168.1.199/"
-    sp2 = "http://192.168.1.200/"
-    print('pis updated',time.strftime('%H:%M:%S'),'n_intervals',n_intervals)
-    return sp1,sp2
-
+def display_hour(n_intervals):
+    hurls = ["http://192.168.1.199/","http://192.168.1.200/"]
+    print('Hour1 images updated',time.strftime('%H:%M:%S'),'n_intervals',n_intervals)
+    t = generate_table(hurls)
+    return t
+    
 if __name__ == '__main__':
     app.run_server(debug=True)

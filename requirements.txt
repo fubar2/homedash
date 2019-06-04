@@ -18,8 +18,8 @@ jsonschema==2.6.0
 jupyter-core==4.3.0
 MarkupSafe==1.0
 nbformat==4.3.0
-numpy==1.13.1
-pandas==0.20.3
+numpy==1.16.2
+pandas==0.24.2
 plotly==2.0.13
 python-dateutil==2.6.1
 pytz==2017.2
@@ -29,3 +29,9 @@ SQLAlchemy==1.1.13
 traitlets==4.3.2
 urllib3==1.24.2
 Werkzeug==0.12.2
+Requirement already satisfied: numpy in /home/ross/.local/lib/python3.7/site-packages 
+(from -r requirements.txt (line 21)) (1.16.2)
+Requirement already satisfied: pandas in /home/ross/.local/lib/python3.7/site-packages 
+(from -r requirements.txt (line 22)) (0.24.2)
+
+
