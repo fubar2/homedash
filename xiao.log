@@ -1,0 +1,68 @@
+DEBUG:root:##start gateway
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd":"read","sid":"7811dc6c9975"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'read_ack', 'model': 'gateway', 'sid': '7811dc6c9975', 'short_id': 0, 'data': '{"rgb":0,"illumination":279,"proto_version":"1.0.9"}'}
+INFO:xiaomi_gateway:Discovering Xiaomi Devices
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd" : "get_id_list"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'get_id_list_ack', 'sid': '7811dc6c9975', 'token': 'Oe4ixOW9qwLvk49k', 'data': '["158d0001e47d9d","158d0002273666","158d000223a48a"]'}
+INFO:xiaomi_gateway:Found 4 devices
+DEBUG:xiaomi_gateway:Discovery attempt 1/10
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd":"read","sid":"158d0001e47d9d"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'read_ack', 'model': 'sensor_motion.aq2', 'sid': '158d0001e47d9d', 'short_id': 13768, 'data': '{"voltage":3015}'}
+DEBUG:xiaomi_gateway:Registering device 158d0001e47d9d, sensor_motion.aq2 as: sensor
+DEBUG:xiaomi_gateway:Registering device 158d0001e47d9d, sensor_motion.aq2 as: binary_sensor
+DEBUG:xiaomi_gateway:Discovery attempt 1/10
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd":"read","sid":"158d0002273666"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'read_ack', 'model': 'weather.v1', 'sid': '158d0002273666', 'short_id': 52719, 'data': '{"voltage":2905,"temperature":"1815","humidity":"5888","pressure":"102190"}'}
+DEBUG:xiaomi_gateway:Registering device 158d0002273666, weather.v1 as: sensor
+DEBUG:xiaomi_gateway:Discovery attempt 1/10
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd":"read","sid":"158d000223a48a"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'read_ack', 'model': 'weather.v1', 'sid': '158d000223a48a', 'short_id': 16125, 'data': '{"voltage":2905,"temperature":"1866","humidity":"6225","pressure":"102190"}'}
+DEBUG:xiaomi_gateway:Registering device 158d000223a48a, weather.v1 as: sensor
+DEBUG:xiaomi_gateway:Discovery attempt 1/10
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd":"read","sid":"7811dc6c9975"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'read_ack', 'model': 'gateway', 'sid': '7811dc6c9975', 'short_id': 0, 'data': '{"rgb":0,"illumination":279,"proto_version":"1.0.9"}'}
+DEBUG:xiaomi_gateway:Registering device 7811dc6c9975, gateway as: sensor
+DEBUG:xiaomi_gateway:Registering device 7811dc6c9975, gateway as: light
+INFO:root:dt sensor
+INFO:root:{'model': 'sensor_motion.aq2', 'proto': '1.0.9', 'sid': '158d0001e47d9d', 'short_id': 13768, 'data': {'voltage': 3015}, 'raw_data': {'cmd': 'read_ack', 'model': 'sensor_motion.aq2', 'sid': '158d0001e47d9d', 'short_id': 13768, 'data': '{"voltage":3015}'}}
+INFO:root:{'model': 'weather.v1', 'proto': '1.0.9', 'sid': '158d0002273666', 'short_id': 52719, 'data': {'voltage': 2905, 'temperature': '1815', 'humidity': '5888', 'pressure': '102190'}, 'raw_data': {'cmd': 'read_ack', 'model': 'weather.v1', 'sid': '158d0002273666', 'short_id': 52719, 'data': '{"voltage":2905,"temperature":"1815","humidity":"5888","pressure":"102190"}'}}
+INFO:root:{'model': 'weather.v1', 'proto': '1.0.9', 'sid': '158d000223a48a', 'short_id': 16125, 'data': {'voltage': 2905, 'temperature': '1866', 'humidity': '6225', 'pressure': '102190'}, 'raw_data': {'cmd': 'read_ack', 'model': 'weather.v1', 'sid': '158d000223a48a', 'short_id': 16125, 'data': '{"voltage":2905,"temperature":"1866","humidity":"6225","pressure":"102190"}'}}
+INFO:root:{'model': 'gateway', 'proto': '1.0.9', 'sid': '7811dc6c9975', 'short_id': 0, 'data': {'rgb': 0, 'illumination': 279, 'proto_version': '1.0.9'}, 'raw_data': {'cmd': 'read_ack', 'model': 'gateway', 'sid': '7811dc6c9975', 'short_id': 0, 'data': '{"rgb":0,"illumination":279,"proto_version":"1.0.9"}'}}
+INFO:root:dt binary_sensor
+INFO:root:{'model': 'sensor_motion.aq2', 'proto': '1.0.9', 'sid': '158d0001e47d9d', 'short_id': 13768, 'data': {'voltage': 3015}, 'raw_data': {'cmd': 'read_ack', 'model': 'sensor_motion.aq2', 'sid': '158d0001e47d9d', 'short_id': 13768, 'data': '{"voltage":3015}'}}
+INFO:root:dt light
+INFO:root:{'model': 'gateway', 'proto': '1.0.9', 'sid': '7811dc6c9975', 'short_id': 0, 'data': {'rgb': 0, 'illumination': 279, 'proto_version': '1.0.9'}, 'raw_data': {'cmd': 'read_ack', 'model': 'gateway', 'sid': '7811dc6c9975', 'short_id': 0, 'data': '{"rgb":0,"illumination":279,"proto_version":"1.0.9"}'}}
+DEBUG:root:##start gateway
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd":"read","sid":"7811dc6c9975"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'read_ack', 'model': 'gateway', 'sid': '7811dc6c9975', 'short_id': 0, 'data': '{"rgb":0,"illumination":279,"proto_version":"1.0.9"}'}
+INFO:xiaomi_gateway:Discovering Xiaomi Devices
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd" : "get_id_list"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'get_id_list_ack', 'sid': '7811dc6c9975', 'token': 'wxGJQrHuhwFRLn40', 'data': '["158d0001e47d9d","158d0002273666","158d000223a48a"]'}
+INFO:xiaomi_gateway:Found 4 devices
+DEBUG:xiaomi_gateway:Discovery attempt 1/10
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd":"read","sid":"158d0001e47d9d"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'read_ack', 'model': 'sensor_motion.aq2', 'sid': '158d0001e47d9d', 'short_id': 13768, 'data': '{"voltage":3015}'}
+DEBUG:xiaomi_gateway:Registering device 158d0001e47d9d, sensor_motion.aq2 as: sensor
+DEBUG:xiaomi_gateway:Registering device 158d0001e47d9d, sensor_motion.aq2 as: binary_sensor
+DEBUG:xiaomi_gateway:Discovery attempt 1/10
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd":"read","sid":"158d0002273666"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'read_ack', 'model': 'weather.v1', 'sid': '158d0002273666', 'short_id': 52719, 'data': '{"voltage":2905,"temperature":"1815","humidity":"5888","pressure":"102190"}'}
+DEBUG:xiaomi_gateway:Registering device 158d0002273666, weather.v1 as: sensor
+DEBUG:xiaomi_gateway:Discovery attempt 1/10
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd":"read","sid":"158d000223a48a"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'read_ack', 'model': 'weather.v1', 'sid': '158d000223a48a', 'short_id': 16125, 'data': '{"voltage":2905,"temperature":"1859","humidity":"6199","pressure":"102191"}'}
+DEBUG:xiaomi_gateway:Registering device 158d000223a48a, weather.v1 as: sensor
+DEBUG:xiaomi_gateway:Discovery attempt 1/10
+DEBUG:xiaomi_gateway:_send_cmd >> b'{"cmd":"read","sid":"7811dc6c9975"}'
+DEBUG:xiaomi_gateway:_send_cmd resp << {'cmd': 'read_ack', 'model': 'gateway', 'sid': '7811dc6c9975', 'short_id': 0, 'data': '{"rgb":0,"illumination":279,"proto_version":"1.0.9"}'}
+DEBUG:xiaomi_gateway:Registering device 7811dc6c9975, gateway as: sensor
+DEBUG:xiaomi_gateway:Registering device 7811dc6c9975, gateway as: light
+INFO:root:dt sensor
+INFO:root:{'model': 'sensor_motion.aq2', 'proto': '1.0.9', 'sid': '158d0001e47d9d', 'short_id': 13768, 'data': {'voltage': 3015}, 'raw_data': {'cmd': 'read_ack', 'model': 'sensor_motion.aq2', 'sid': '158d0001e47d9d', 'short_id': 13768, 'data': '{"voltage":3015}'}}
+INFO:root:{'model': 'weather.v1', 'proto': '1.0.9', 'sid': '158d0002273666', 'short_id': 52719, 'data': {'voltage': 2905, 'temperature': '1815', 'humidity': '5888', 'pressure': '102190'}, 'raw_data': {'cmd': 'read_ack', 'model': 'weather.v1', 'sid': '158d0002273666', 'short_id': 52719, 'data': '{"voltage":2905,"temperature":"1815","humidity":"5888","pressure":"102190"}'}}
+INFO:root:{'model': 'weather.v1', 'proto': '1.0.9', 'sid': '158d000223a48a', 'short_id': 16125, 'data': {'voltage': 2905, 'temperature': '1859', 'humidity': '6199', 'pressure': '102191'}, 'raw_data': {'cmd': 'read_ack', 'model': 'weather.v1', 'sid': '158d000223a48a', 'short_id': 16125, 'data': '{"voltage":2905,"temperature":"1859","humidity":"6199","pressure":"102191"}'}}
+INFO:root:{'model': 'gateway', 'proto': '1.0.9', 'sid': '7811dc6c9975', 'short_id': 0, 'data': {'rgb': 0, 'illumination': 279, 'proto_version': '1.0.9'}, 'raw_data': {'cmd': 'read_ack', 'model': 'gateway', 'sid': '7811dc6c9975', 'short_id': 0, 'data': '{"rgb":0,"illumination":279,"proto_version":"1.0.9"}'}}
+INFO:root:dt binary_sensor
+INFO:root:{'model': 'sensor_motion.aq2', 'proto': '1.0.9', 'sid': '158d0001e47d9d', 'short_id': 13768, 'data': {'voltage': 3015}, 'raw_data': {'cmd': 'read_ack', 'model': 'sensor_motion.aq2', 'sid': '158d0001e47d9d', 'short_id': 13768, 'data': '{"voltage":3015}'}}
+INFO:root:dt light
+INFO:root:{'model': 'gateway', 'proto': '1.0.9', 'sid': '7811dc6c9975', 'short_id': 0, 'data': {'rgb': 0, 'illumination': 279, 'proto_version': '1.0.9'}, 'raw_data': {'cmd': 'read_ack', 'model': 'gateway', 'sid': '7811dc6c9975', 'short_id': 0, 'data': '{"rgb":0,"illumination":279,"proto_version":"1.0.9"}'}}

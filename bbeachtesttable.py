@@ -9,18 +9,13 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import urllib.request
 import base64
-hurls = ["http://192.168.1.199/","http://192.168.1.200/"]
-h3urls = ["http://203.217.21.105:1050/jpg/1/image.jpg?cache=%d" % random.randint(0,30000),
-    "http://webcams.bsch.com.au/bondi_beach/1252x940.jpg?cache=%d" % random.randint(0,30000),
-    "http://192.168.1.108/snapshot.jpg",
-    "http://192.168.1.107/snapshot.jpg"]
-titles = ['Bergs','North','Big','Small','Pi1','Pi2']
+
 hour3 = 1200 # secs
 hour1 = 3600 # secs
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-
+  
 def generate_table(urls):
     return html.Table(
         # Header
@@ -33,6 +28,16 @@ def generate_table(urls):
                 src = urls[i])) for i in range(len(urls))]
         )])
 
+def geth1():
+    return generate_table(["http://192.168.1.199/?cache=%d" % random.randint(0,30000),
+    "http://192.168.1.200/?cache=%d" % random.randint(0,30000)])
+    
+def geth3():
+    return generate_table(["http://203.217.21.105:1050/jpg/1/image.jpg?cache=%d" % random.randint(0,30000),
+    "http://webcams.bsch.com.au/bondi_beach/1252x940.jpg?cache=%d" % random.randint(0,30000),
+    "http://192.168.1.108/snapshot.jpg?cache=%d" % random.randint(0,30000),
+    "http://192.168.1.107/snapshot.jpg?cache=%d" % random.randint(0,30000)])
+  
         
 app = dash.Dash(__name__) #, external_stylesheets=external_stylesheets)
 
@@ -50,31 +55,26 @@ app.layout = html.Div(children=[
             ),
 
     html.Div(id = "h3im", children=[
-        generate_table(h3urls)
+        geth3()
         ]),
         
     html.Div(id = "h1im", children=[
-        generate_table(hurls)
+        geth1()
         ])
     ])
 
 @app.callback(Output('h3im','children'),
             [Input('btimer', 'n_intervals')])
 def display_hour3(n_intervals):
-    h3urls = ["http://203.217.21.105:1050/jpg/1/image.jpg?cache=%d" % random.randint(0,30000),
-    "http://webcams.bsch.com.au/bondi_beach/1252x940.jpg?cache=%d" % random.randint(0,30000),
-    "http://192.168.1.108/snapshot.jpg",
-    "http://192.168.1.107/snapshot.jpg"]
+    t = geth3()
     print('Hour3 images updated',time.strftime('%H:%M:%S'),'n_intervals',n_intervals)
-    t = generate_table(h3urls)
     return t
 
 @app.callback(Output("h1im",'children'),
             [Input('ptimer', 'n_intervals')])
 def display_hour(n_intervals):
-    hurls = ["http://192.168.1.199/","http://192.168.1.200/"]
     print('Hour1 images updated',time.strftime('%H:%M:%S'),'n_intervals',n_intervals)
-    t = generate_table(hurls)
+    t = geth1()
     return t
     
 if __name__ == '__main__':
