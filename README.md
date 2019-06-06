@@ -8,3 +8,5 @@ including the north bondi rsl and bergs cams.
 
 Includes work on some sensors attached my xiaomi aqara gateway based on https://github.com/Danielhiversen/PyXiaomiGateway
 
+Added more sample code to detect and log all weather sensors attached to a gateway.
+
