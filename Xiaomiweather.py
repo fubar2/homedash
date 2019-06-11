@@ -9,25 +9,18 @@ import time
 import signal
 import logging
 from collections import defaultdict
-logging.basicConfig(filename='xiaoweather.log',level=logging.INFO)
+import Xiaomiweatherconfig as settings # neat trick - put config there
+logging.basicConfig(filename=settings.LOGFNAME,level=logging.INFO)
 
 from xiaomi_gateway import XiaomiGateway
 
-WSENSORID='weather.v1'
 global RUNNING
 RUNNING = True
-SAMPINT = 300 # sleep seconds between read loops
+SAMPINT = settings.SAMPINT # sleep seconds between read loops
 
 
-# todo make config
-ip_address = "192.168.1.122"
-port = 9898
-sid = "7811dc6c9975"
-key = 'czeeoimwtjkdsdix'
-discovery_retries = 10
-interface = 'any'
 
-class xweathersensor():
+class Xweathersensor():
     """class for xiaomi weather sensors - temp/hum/baro
     instantiate when detected
     methods to get latest data and write to a file
@@ -41,12 +34,12 @@ class xweathersensor():
 
     """
 
-    def __init__(self,drec,updateint):
+    def __init__(self,drec,updateint,xid):
         self.HEADER = 'time\ttemp\thumidity\tpressure\n'
         self.sid = drec['sid']
         self.updateint = updateint
         self.tdinit = time.strftime('%H%M%S_%d%m%Y')
-        self.outfname = '%s_%s_%d.xls' % (WSENSORID.split('.')[0],self.sid,self.updateint)
+        self.outfname = '%s_%s_%d.xls' % (xid.split('.')[0],self.sid,self.updateint)
         logging.debug('## using outfname = %s' % self.outfname)
         fdat = drec['data']
         v,t,h,p = fdat['voltage'],fdat['temperature'],fdat['humidity'],fdat['pressure']
@@ -71,7 +64,6 @@ class xweathersensor():
         self.fout.write(s)
         self.fout.flush()
 
- 
 def sigint_handler(signum, frame):
     RUNNING = False
     for sid in sensors.keys():
@@ -82,25 +74,26 @@ def sigint_handler(signum, frame):
 if __name__=="__main__":
     global sensors
     sensors = {}
-    xG = XiaomiGateway(ip_address, port, sid, key, discovery_retries, interface, proto=None)
+    xG = XiaomiGateway(settings.IP_ADDRESS, settings.PORT, settings.SID,
+       settings.KEY, settings.DISCOVERY_RETRIES, settings.INTERFACE, proto=None)
     for dt in xG.devices.keys():
-        logging.info('dt %s\n' % dt)
+        logging.info('device types %s found\n' % dt)
         for d in xG.devices[dt]:
             logging.info('%s\n' % d)
-            if d['model'] == WSENSORID:
-                sid = d['sid']
-                xw = xweathersensor(drec=d,updateint = SAMPINT)
-                sensors[sid] = xw
-                xG.callbacks[sid].append(xw.writedat)
+            foundSid = d['sid']
+            if d['model'] in settings.XSENSORIDS: # YMMV - I only have weather sensors
+                xw = Xweathersensor(drec=d,updateint = settings.SAMPINT,xid = d['model'])
+                sensors[foundSid] = xw
+                xG.callbacks[foundSid].append(xw.writedat)
                 # so a call to x.get_from_hub calling push_data will write out data
-                logging.info('## Added weather sensor %s sid %s' % (d['model'],sid))
+                logging.info('## Added weather sensor %s sid %s' % (d['model'],foundSid))
             else:
-                logging.info('!! Not adding non-weather sensor %s sid %s' % (d['model'],sid))
+                logging.info('!! Not adding non-weather sensor %s sid %s' % (d['model'],foundSid))
     while RUNNING == True:
         for sid in sensors.keys():
             sidok = xG.get_from_hub(sid)
             if not sidok:
                 logging.warning('### device SID %s not responding' % sid)
-        time.sleep(SAMPINT)
+        time.sleep(settings.SAMPINT)
 
 
