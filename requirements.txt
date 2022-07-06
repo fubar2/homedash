@@ -55,7 +55,7 @@ lazr.restfulclient==0.14.2
 lazr.uri==1.0.3
 LibAppArmor==2.13.2
 louis==3.8.0
-lxml==4.3.2
+lxml==4.9.1
 macaroonbakery==1.2.1
 Mako==1.0.8
 MarkupSafe==1.1.1
